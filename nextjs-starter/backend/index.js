@@ -3,22 +3,39 @@
 * Auto generated Codehooks (c) example
 * Install: npm i codehooks-js codehooks-crudlify
 */
-import {app} from 'codehooks-js'
+import {app, Datastore} from 'codehooks-js'
 import {crudlify} from 'codehooks-crudlify'
+import { date, object, string, number} from 'yup';
+import jwtDecode from 'jwt-decode';
 
-// Create a GET endpoint route
-// app.get('/hello', async (req, res) => {
-//   console.log("I run locally, cool!");
-//   res.json({"message": "Hello local world!"});
-// });
-
-// test route for https://<PROJECTID>.api.codehooks.io/dev/
-app.get('/', (req, res) => {
-  res.send('CRUD server ready')
+const TodosYup = object({
+  title: string().required(),
+  done: boolean().required().default(false),
+  createdOn: date().default(() => new Date()),
 })
 
+const userAuth = async (req, res, next) => {
+  try {
+    const { authorization } = req.headers;
+    if (authorization) {
+      const token = authorization.replace('Bearer ','');
+      const token_parsed = jwtDecode(token);
+      req.user_token = token_parsed;
+    }
+    next();
+  } catch (error) {
+    next(error);
+  } 
+}
+app.use(userAuth)
+
+// test route for https://<PROJECTID>.api.codehooks.io/dev/
+// app.get('/', (req, res) => {
+//   res.send('CRUD server ready')
+// })
+
 // Use Crudlify to create a REST API for any collection
-crudlify(app)
+crudlify(app, {todos: TodosYup})
 
 // bind to serverless runtime
 export default app.init();
