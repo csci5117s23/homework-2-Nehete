@@ -13,8 +13,9 @@ export async function addTodo(authToken, todo) {
         'method':'POST',
         'headers': {'Authorization': 'Bearer ' + authToken,
         'Content-Type': 'application/json'},
-        'body': JSON.stringify({name: todo})
+        'body': JSON.stringify({'title': todo})
     })
+    console.log(result);
     return await result.json();
 }
 

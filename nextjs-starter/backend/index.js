@@ -1,4 +1,3 @@
-
 /*
 * Auto generated Codehooks (c) example
 * Install: npm i codehooks-js codehooks-crudlify
@@ -30,9 +29,9 @@ const userAuth = async (req, res, next) => {
 app.use(userAuth)
 
 // test route for https://<PROJECTID>.api.codehooks.io/dev/
-// app.get('/', (req, res) => {
-//   res.send('CRUD server ready')
-// })
+app.get('/dev', (req, res) => {
+  res.send('CRUD server ready')
+})
 
 // Use Crudlify to create a REST API for any collection
 crudlify(app, {todos: TodosYup})

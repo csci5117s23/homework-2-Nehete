@@ -1,7 +1,7 @@
 import TodoObject from "./TodoObject"
 import { useAuth } from "@clerk/nextjs";
 import React, { useState, useEffect } from "react";
-import { getTodos } from "@/modules/Data";
+import { getTodos, addTodo } from "@/modules/Data";
 
 export default function TodoList() {
     const [loading, setLoading] = useState(true);
@@ -13,16 +13,13 @@ export default function TodoList() {
 
     useEffect(() => {
         async function getTodoList() {
-            console.log("Start")
             if (userId) { // check if 1) logged in, and 2) auth is loaded properly in the first place
-                console.log("Finished 2")
                 const token = await getToken({ template: "codehooks" });
                 const todos = await getTodos(token);
-                
-                setTodoList(todos)
-                setLoading(false);
+                console.log(todos)
 
-                console.log("Finished")
+                setTodoList(todos);
+                setLoading(false);
             }
         }
         getTodoList();
@@ -39,18 +36,18 @@ export default function TodoList() {
 
 
     if (loading) {
-        return <span> loading... </span>;
+        return <span> loading... </span>
     } else {
-        const listItems = todoList.map( (todo) => <li>{todo.title}</li> )
+        // const listItems = todoList.map( (todo) => <li>{todo.title}</li> );
+        const listItems = todoList.map( (todo) => <li><TodoObject title={todo.title} done={todo.done}></TodoObject></li> );
         return (<>
             <ul>{listItems}</ul>
             <input
-                placeholder="Add a Task"
+                placeholder="Add a Todo"
+                onChange={(e) => setNewName(e.target.value)}
                 onKeyDown = {(e)=>{if (e.key === 'Enter'){add()}}}
             ></input>
-            <button onClick={add}>Add Task</button>
-
-            <TodoObject></TodoObject>
+            <button onClick={add}>Add Todo</button>
         </>)
     }
 }
