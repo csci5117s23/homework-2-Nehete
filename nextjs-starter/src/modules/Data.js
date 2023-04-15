@@ -8,6 +8,14 @@ export async function getTodos(authToken) {
     return await result.json();
 }
 
+export async function getTodo(authToken, id) {
+    const result = await fetch(backend_base+"/todos?" + id,{
+        'method':'GET',
+        'headers': {'Authorization': 'Bearer ' + authToken}
+    })
+    return await result.json();
+}
+
 export async function addTodo(authToken, todo) {
     const result = await fetch(backend_base+"/todos",{
         'method':'POST',

@@ -1,4 +1,5 @@
-import TodoObject from "./TodoObject"
+import TodoObject from "./TodoObject";
+import Link from "next/link";
 import { useAuth } from "@clerk/nextjs";
 import React, { useState, useEffect } from "react";
 import { getTodos, addTodo } from "@/modules/Data";
@@ -39,7 +40,13 @@ export default function TodoList() {
         return <span> loading... </span>
     } else {
         // const listItems = todoList.map( (todo) => <li>{todo.title}</li> );
-        const listItems = todoList.map( (todo) => <li><TodoObject title={todo.title} done={todo.done}></TodoObject></li> );
+        const listItems = todoList.map( (todo) => 
+        <li key={todo._id}>
+            <div>
+                <TodoObject title={todo.title} done={todo.done}></TodoObject> 
+                <Link href={"/todo/_id=" + todo._id}> {todo.title} </Link>
+            </div>
+        </li> );
         return (<>
             <ul>{listItems}</ul>
             <input

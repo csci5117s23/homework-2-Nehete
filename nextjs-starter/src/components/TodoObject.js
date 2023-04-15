@@ -6,12 +6,10 @@ export default function TodoObject({title, done}) {
 
     return (
         <>
-            <li class="todo-item">
             <label>
-                <span class="todo-title">{title}</span>
-                <input type="checkbox" class="todo-checkbox"/>
+                <span className="todo-title">{title}</span>
+                <input type="checkbox" className="todo-checkbox"/>
             </label>
-            </li>
         </>
     )
 }
