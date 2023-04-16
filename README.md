@@ -7,14 +7,14 @@ Please fill out all of the following sections to help us grade your submission:
 
 ## Student (to be completed individually)
 
-* First Last, x500@umn.edu
+* Pratik Nehete, nehet001@umn.edu
 
 ## Link to Site
 
-<https://TODO.com/>
+https://luminous-kringle-490a06.netlify.app
 
 ## Challenge Task
 
-* I started the challenge task: [yes/no]
-* I completed the challenge task: [yes/no]
+* I started the challenge task: no
+* I completed the challenge task: no
 
