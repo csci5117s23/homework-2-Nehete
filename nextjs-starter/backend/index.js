@@ -4,7 +4,7 @@
 */
 import {app, Datastore} from 'codehooks-js'
 import {crudlify} from 'codehooks-crudlify'
-import { date, object, string, number} from 'yup';
+import { date, object, string, number, boolean } from 'yup';
 import jwtDecode from 'jwt-decode';
 
 const TodosYup = object({
@@ -27,6 +27,14 @@ const userAuth = async (req, res, next) => {
   } 
 }
 app.use(userAuth)
+
+
+export async function deleteFunc(req, res) {
+    const {collection, ID} = req.params;
+    const conn = await Datastore.open();  
+    const result = await conn.removeOne(collection, ID, {}); 
+    res.json(result);    
+}
 
 // test route for https://<PROJECTID>.api.codehooks.io/dev/
 app.get('/dev', (req, res) => {
