@@ -14,6 +14,6 @@ export default function Todos() {
         <SignedOut>
             <Link href={"/"}>Redirect to Sign In</Link>
         </SignedOut>
-        </>
+        </> 
     )
 }
