@@ -2,7 +2,7 @@ import TodoObject from "./TodoObject";
 import Link from "next/link";
 import { useAuth } from "@clerk/nextjs";
 import React, { useState, useEffect } from "react";
-import { getTodos, addTodo, getDoneTodos } from "@/modules/Data";
+import { getTodos, addTodo, getDoneTodos, getNotDoneTodos } from "@/modules/Data";
 
 export default function TodoList({done}) {
     const [loading, setLoading] = useState(true);
@@ -20,7 +20,7 @@ export default function TodoList({done}) {
                 if (done) {
                     todos = await getDoneTodos(token);
                 } else {
-                    todos = await getTodos(token);
+                    todos = await getNotDoneTodos(token);
                 }
                 console.log(todos)
 

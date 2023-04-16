@@ -38,9 +38,12 @@ export default function todoPage() {
         return <span> loading... </span>
     }
     return (<>
-        <SignedIn>
-            <li><TodoObject title={title} done={todo.done} id={todo._id} canEdit={true}></TodoObject></li> <UserButton /> 
-        </SignedIn>
+        <div className="container">
+            <h1>Selected Todo</h1>
+            <SignedIn>
+                <li><TodoObject title={title} done={todo.done} id={todo._id} canEdit={true}></TodoObject></li> <Link href={"/Todos"}>Redirect to Todos</Link> <UserButton /> 
+            </SignedIn>
+        </div>
 
         <SignedOut>
             <Link href={"/"}>Redirect to Sign In</Link>

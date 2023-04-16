@@ -6,10 +6,13 @@ import Link from "next/link";
 export default function Todos() {
     return (
         <>
-        <SignedIn>
-            <TodoList done={false}></TodoList>
-            <UserButton />
-        </SignedIn>
+        <div className="container">
+            <SignedIn>
+                <h1>Todos List</h1>
+                <TodoList done={false}></TodoList>
+                <UserButton />
+            </SignedIn>
+        </div>
 
         <SignedOut>
             <Link href={"/"}>Redirect to Sign In</Link>

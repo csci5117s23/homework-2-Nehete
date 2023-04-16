@@ -10,20 +10,26 @@ const inter = Inter({ subsets: ['latin'] })
 export default function Home() {
   return (
     <>
-      <Head>
-        <title>Pratik's Todo App</title>
-      </Head>
+      <div className="container">
+        <Head>
+          <title>Pratik's Todo App</title>
+        </Head>
 
-      <h1>Pratik's Todo App</h1>
+        <h1>Pratik's Todo App</h1>
+      </div>
 
-      <SignedIn>
-        <Link href={"/Todos"}>Go to Todos</Link>
-        <UserButton />
-      </SignedIn>
+      <div className="container">
+        <SignedIn>
+          <Link href={"/Todos"}>Go to Todos</Link>
+          <UserButton />
+        </SignedIn>
+      </div>
 
-      <SignedOut>
-        <SignIn path="/SignIn" afterSignInUrl="/Todos"/>
-      </SignedOut>
+      <div className="container">
+        <SignedOut>
+          <SignIn path="/SignIn" afterSignInUrl="/Todos"/>
+        </SignedOut>
+      </div>
     </>
   )
 }

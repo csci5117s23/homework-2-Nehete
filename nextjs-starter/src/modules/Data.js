@@ -16,6 +16,14 @@ export async function getDoneTodos(authToken) {
     return await result.json();
 }
 
+export async function getNotDoneTodos(authToken) {
+    const result = await fetch(backend_base+"/todos?done=false",{
+        'method':'GET',
+        'headers': {'Authorization': 'Bearer ' + authToken}
+    })
+    return await result.json();
+}
+
 export async function getTodo(authToken, id) {
     const result = await fetch(backend_base+"/todos?" + id,{
         'method':'GET',
