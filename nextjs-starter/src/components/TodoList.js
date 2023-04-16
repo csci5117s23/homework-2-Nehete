@@ -2,9 +2,9 @@ import TodoObject from "./TodoObject";
 import Link from "next/link";
 import { useAuth } from "@clerk/nextjs";
 import React, { useState, useEffect } from "react";
-import { getTodos, addTodo } from "@/modules/Data";
+import { getTodos, addTodo, getDoneTodos } from "@/modules/Data";
 
-export default function TodoList() {
+export default function TodoList({done}) {
     const [loading, setLoading] = useState(true);
     const [todoList, setTodoList] = useState([]);
     const { isLoaded, userId, sessionId, getToken } = useAuth();
@@ -16,7 +16,12 @@ export default function TodoList() {
         async function getTodoList() {
             if (userId) { // check if 1) logged in, and 2) auth is loaded properly in the first place
                 const token = await getToken({ template: "codehooks" });
-                const todos = await getTodos(token);
+                var todos;
+                if (done) {
+                    todos = await getDoneTodos(token);
+                } else {
+                    todos = await getTodos(token);
+                }
                 console.log(todos)
 
                 setTodoList(todos);
@@ -43,10 +48,19 @@ export default function TodoList() {
         const listItems = todoList.map( (todo) => 
         <li key={todo._id}>
             <div>
-                <TodoObject title={todo.title} done={todo.done}></TodoObject> 
-                <Link href={"/todo/_id=" + todo._id}> {todo.title} </Link>
+                <TodoObject title={todo.title} done={todo.done} id={todo._id} canEdit={false}></TodoObject> 
+                {/* <Link href={"/todo/_id=" + todo._id}> {todo.title} </Link> */}
             </div>
         </li> );
+
+        if (done) {
+            return (<>
+                <h1>Done Todos</h1>
+                <ul>{listItems}</ul>
+                <Link href={"/Todos"}> Back to Todos </Link>
+            </>)
+        }
+
         return (<>
             <ul>{listItems}</ul>
             <input
@@ -55,6 +69,8 @@ export default function TodoList() {
                 onKeyDown = {(e)=>{if (e.key === 'Enter'){add()}}}
             ></input>
             <button onClick={add}>Add Todo</button>
+            <br></br>
+            <Link href={"/Done"}>Check Done Todos</Link>
         </>)
     }
 }
